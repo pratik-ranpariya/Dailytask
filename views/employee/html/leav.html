@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Dashboard </title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=BaseUrl%>/employee/assets/css/site.min.css">
+</head>
+
+</head>
+
+<body>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-64398169-1"></script>
+    
+<body class="layout-row">
+	
+	<%- include ('leftsidemenu.html'); %>
+
+	<div id="main" class="layout-column flex">
+
+		<div id="content" class="flex">
+			<div>
+				<div class="page-hero page-container" id="page-hero">
+					<div class="padding d-flex">
+						<div class="page-title">
+							<h2 class="text-md text-highlight">Get Leave</h2>
+						</div>
+					</div>
+				</div>
+
+				<div class="page-content page-container" id="page-content">
+					<div class="padding">
+						<div class="row row-sm sr">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header"><strong>Task form</strong>
+									</div>
+									<div class="card-body">
+
+										<form name="time" action="<%=BaseUrl%>/leaves"  method="post"  role="form" onsubmit="return validateForm()">
+											<div class="row">
+
+												<table class="table no-border custom_table dataTable no-footer dtr-inline" id="crud_table" style="width: 100%;background-color:#fff;">
+														<tr>
+															<td><input type="hidden" name="id" value="<%= data._id%>"></td>
+														</tr>
+															<thead>
+																<tr>
+																	<th>Start Time</th>
+																	<th>End Time</th>
+																	<th>Reason</th>
+																	<!-- <th>Discription</th> -->
+																</tr>
+															</thead>
+
+															<tbody style="background-color: #eee;" >	
+																<tr>
+                                                                    <td><input class="form-control" type="datetime-local" name="starttime" id="starttime" value="2020-01-01T00:00" required></td>
+                                                                    <td><input class="form-control" type="datetime-local" name="endtime" id="endttime"  value="2020-01-02T00:00" required></td>
+                                                                    <!-- <td><input type="time" name="starttime" id="starttime"  class="form-control" autocomplete="off " required></td>  -->
+                                                                    <!-- <td><input type="time" name="endtime" id="endtime" class="form-control" autocomplete="off" required></td> -->
+                                                                    <td><input type="text" name="reason" class="form-control" autocomplete="off" required></td>
+                                                                    <!-- <td><input type="text" name="description" class="form-control" autocomplete="off" required></td> -->
+																	</tr>
+																</tbody>
+															
+															</table>
+
+														<div class="form-group">
+															<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+																<input type="submit" name="submit" value="submit"  id="btn-save" class="btn btn-primary"/>
+															</div>
+														</div>
+													</form>
+														</div>
+													</div>
+												</div>
+                                            </div>
+                                            <div class="card-header" style="margin-top: 50px;"><strong><h3>History</h3></strong>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table id="datatables-example" class="table table-theme table-row v-middle" data-plugin="dataTable">
+                                                    
+                                                    <thead><% if(data1) { if (data1.length > 0) { for(var i = 0; i < 1; i++ ) { %>
+                                                        <tr>
+                                                            <th><span class="text-muted">NO</span>
+                                                            </th>
+                                                            <th><span class="text-muted">Date</span>
+                                                            </th>
+                                                            <th><span class="text-muted">Start Time</span>
+                                                            </th>
+                                                            <th><span class="text-muted">End Time</span>
+                                                            </th>
+                                                            <th><span class="text-muted">Duration</span>
+                                                            </th>
+                                                            <th><span class="text-muted">Reason</span>
+                                                            </th>
+                                                            <th><span class="text-muted">HR</span>
+                                                            </th>
+                                                            <% if(data1[i].PM){ %> <th><span class="text-muted">Project Manager</span>
+                                                            </th><% } %>
+                                                            <% if(data1[i].TL){ %><th><span class="text-muted">Team Leader</span>
+                                                            </th><% } %>
+                                                            <th><span class="text-muted d-none d-sm-block">Delete</span>
+                                                            </th>
+                                                        </tr><% } } } %>
+                                                    </thead>
+                                                    <tbody>
+                                                    <% if(data1) { %>
+                                                        <% if (data1.length > 0) { %>
+                                                            <% for(var i = 0; i < data1.length; i++ ) { %>
+                                                                <tr>
+                                                                    <td style="min-width:30px;text-align:center"><small class="text-muted"><%= (i + 1) %></small>
+                                                                    </td>
+                                                                    <td class="flex">
+                                                                        <div class="item-except text-muted text-sm h">
+                                                                            <%= data1[i].date%>
+                                                                        </div>
+                                                                    </td>
+                                                                    <style>.w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%}</style>
+                        
+                                                                    <td><span class="item-amount d-none d-sm-block text-sm"><input type="datetime-local" class="w3-input" value="<%= data1[i].starttime %>"></span>
+                                                                    </td>
+
+                                                                    <td><span class="item-amount d-none d-sm-block text-sm"><input type="datetime-local" class="w3-input" value="<%= data1[i].endtime %>"></span>
+                                                                    </td>
+                        
+                                                                    
+                                                                    <td><span class="item-amount d-none d-sm-block text-sm"><%= data1[i].diff %> Hour</span>
+                                                                    </td>
+                        
+                                                                    <td><span class="item-amount d-none d-sm-block text-sm"><%= data1[i].reason %></span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <% if(data1[i].HR == 0){ %>
+                                                                            <button class="btn btn-dark">Pending</button>
+                                                                        <% } else { %>
+                                                                            <button class="btn">Approved</button>
+                                                                        <% } %>
+                                                                    </td>
+                                                                    
+                                                                    <% if(data1[i].PM){  %>
+                                                                        <td>
+                                                                        <% if(data1[i].PM == 0){ %>
+                                                                            <button class="btn btn-dark">Pending</button>
+                                                                        <% } else { %>
+                                                                            <button class="btn">Approved</button>
+                                                                        <% } %>
+                                                                        </td>
+                                                                    <% } %>
+
+                                                                    <% if(data1[i].TL){ %>
+                                                                        <td>
+                                                                        <% if(data1[i].TL == 0){ %>
+                                                                            <button class="btn btn-dark">Pending</button>
+                                                                        <% } else { %>
+                                                                            <button class="btn">Approved</button>
+                                                                        <% } %>
+                                                                        </td>
+                                                                    <% } %>
+
+                                                                    <td>
+                                                                        <% if(data1[i].TL > 0 || data1[i].PM > 0 || data1[i].HR > 0){ %>
+                                                                        
+                                                                        <% } else { %>
+                                                                            <a href="<%=BaseUrl%>/deleteleave/<%=data1[i]._id%>"><button class="btn" style="background-color: red; color: white;">Delete</button></a>
+                                                                        <% } %>
+                                                                    </td>
+                                                                </tr>
+                                                                <% } }else{ %>
+                                                                <tr>
+                                                                    <td colspan="10">
+                                                                        <span class="item-amount d-none d-sm-block text-sm">
+                                                                            <center><div class="item-except text-muted text-sm h-1x">Date Not Found</div></center>
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>  
+                                                            <% }%>
+                                                        <% } %>
+                                                    </tbody>
+                                                </table>  
+                                            </div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="footer" class="page-footer">
+							<div class="d-flex p-3"><span class="text-sm text-muted flex">&copy;  Copyright. SsvlTechnologies.com</span>
+								<div class="text-sm text-muted">Version 1.1.1</div>
+							</div>
+						</div>
+                    </div>
+                    
+                    <script>
+                        function getDate() {
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth()+1; //January is 0!
+                        var yyyy = today.getFullYear();
+
+                        if(dd<10) {
+                            dd = '0'+dd
+                        }
+
+                        if(mm<10) {
+                            mm = '0'+mm
+                        } 
+
+                        today = yyyy+'-'+mm+'-'+dd+'T00:00';
+                        console.log(today);
+                        document.getElementById("starttime").value = today;
+                        }
+
+                        window.onload = function() {
+                            getDate();
+                        };
+                    </script>
+
+		<script src="<%=BaseUrl%>/employee/assets/js/datatables.bootstrap.min.js"></script>
+		<script src="<%=BaseUrl%>/employee/assets/js/jquery.datatables.min.js"></script>
+		<script src="<%=BaseUrl%>/employee/assets/js/site.min.js"></script>
+
+		<script>
+			function validateForm(){
+	
+				var starttime = document.forms["time"]["starttime"].value;
+				var endtime = document.forms["time"]["endtime"].value;
+
+				
+				var timeStart = new Date(starttime).getTime();
+                var timeEnd = new Date(endtime).getTime();
+
+              if (timeStart == timeEnd){
+				alert("Your Starttime and endtime are same"); 
+				return false;
+			  }else if (timeStart > timeEnd){
+				alert("Oops! Your starttime Should not Greater then End Time!"); 
+				return false;
+			  }
+			  
+			  return true;
+			}
+		</script>
+	
+</body>
+
+</html>

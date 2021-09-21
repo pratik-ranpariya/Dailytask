@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Login </title>
+	<meta name="description" content="Responsive, Bootstrap, BS4">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<link rel="stylesheet" href="<%=BaseUrl%>/employee/assets/css/site.min.css">
+</head>
+
+<body class="layout-row">
+	<div class="flex">
+		<div class="w-xl w-auto-sm mx-auto py-5">
+			<div class="p-4 d-flex flex-column h-100">
+				<a href="index.html" class="navbar-brand align-self-center">
+					<svg width="32" height="32" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+						<g class="loading-spin" style="transform-origin: 256px 256px">
+							<path d="M200.043 106.067c-40.631 15.171-73.434 46.382-90.717 85.933H256l-55.957-85.933zM412.797 288A160.723 160.723 0 0 0 416 256c0-36.624-12.314-70.367-33.016-97.334L311 288h101.797zM359.973 134.395C332.007 110.461 295.694 96 256 96c-7.966 0-15.794.591-23.448 1.715L310.852 224l49.121-89.605zM99.204 224A160.65 160.65 0 0 0 96 256c0 36.639 12.324 70.394 33.041 97.366L201 224H99.204zM311.959 405.932c40.631-15.171 73.433-46.382 90.715-85.932H256l55.959 85.932zM152.046 377.621C180.009 401.545 216.314 416 256 416c7.969 0 15.799-.592 23.456-1.716L201.164 288l-49.118 89.621z"></path>
+						</g>
+					</svg> <span class="hidden-folded d-inline l-s-n-1x align-self-center">SSVL TECHNOLOGIES</span>
+				</a>
+			</div>
+			<div class="card">
+				<div id="content-body">
+					<div class="p-3 p-md-5">
+	<!-- 						<h5>Welcome back</h5>
+							<p><small class="text-muted">Login to manage your account</small>
+							</p> -->
+						<form  action="<%=BaseUrl%>/login" method="post">
+							<div class="form-group">
+								<label>Email</label>
+								<input type="email" name="emailid" class="form-control" placeholder="Enter email">
+							</div>
+							<div class="form-group">
+								<label>Password</label>
+								<input type="password" name="password" class="form-control" placeholder="Password">
+								
+							</div>
+							
+							<button type="submit" name="submit" class="btn btn-primary mb-4">Sign in</button><br>
+							<% if(msg) { %> <%= msg %> <%}%>
+							<% if(msgs) {%><%= msgs %> <%}%>
+
+							</div>
+							<div class="my-3 text-right"> <a onclick="myFunction()" class="forgot-password">Forgot Password? &nbsp;</a>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="text-center text-muted">&copy; Copyright. ssvl technologies</div> -->
+		</div>
+	</div>
+
+
+			<div id="modal-animate" class="modal fade" data-backdrop="true">
+							<div class="modal-dialog animate">
+								<div class="modal-content">
+									<div class="modal-header">
+										<div class="modal-title text-md">Modal title</div>
+										<button class="close" data-dismiss="modal">&times;</button>
+									</div>
+								      <div class="modal-body">
+
+								        <form  action="backend.php?service=forgetPassword" method="POST" enctype="multipart/form-data">
+								          <div class="form-group">
+								            <input type="text" name="password" cols="10" placeholder="Enter New Password" class="form-control">
+								            <input type="hidden" name="mobile" id="forget-mobile-no" cols="10" placeholder="Enter New Password" class="form-control">
+								          </div>      
+
+								          <div class="modal-footer">
+										<button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+										<input name="submit" value="submit" type="submit" class="btn btn-primary" >
+									      </div>
+								        </form>
+
+								      </div>
+									
+								</div>
+							</div>
+						</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="<%=BaseUrl%>/employee/html/push.js"></script>
+	<script type="text/javascript">
+		// permission for push
+		Push.Permission.request();
+
+		function myFunction() {
+			Push.create("Hello world!",{
+				body: "This is example of Push.js",
+				icon: 'http://www.w3.org/Icons/WWW/w3c_home',
+				timeout: 5000,
+				onClick: function () {
+					setRandomColor();
+					window.focus();
+					this.close();
+				}
+			});
+		}
+		function getRandomColor() {
+			var letters = '0123456789ABCDEF';
+			var color = '#';
+			for (var i = 0; i < 6; i++) {
+				color += letters[Math.floor(Math.random() * 16)];
+			}
+			return color;
+		}
+		function setRandomColor() {
+			$("#colorpad").css("color", getRandomColor());
+		}
+	</script>
+
+	<script src="<%=BaseUrl%>/employee/assets/js/site.min.js"></script>
+</body>
+</html>

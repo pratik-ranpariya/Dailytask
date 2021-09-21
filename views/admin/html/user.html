@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Mirrored from 	 by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Sep 2019 08:56:32 GMT -->
+
+<head>
+	<meta charset="utf-8">
+	<title>User | Basik - Bootstrap 4 Web Application</title>
+	<meta name="description" content="Responsive, Bootstrap, BS4">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="<%=BaseUrl%>/admin/assets/css/site.min.css">
+</head>
+
+<body class="layout-row" >
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  
+	<%- include ('leftsidemenu.html'); %>
+  </div>
+
+	<div id="main" class="layout-column flex">
+
+		<div id="content" class="flex">
+	        <div class="mb-12"><br><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-md btn-raised btn-wave btn-icon btn-rounded md-2 green text-white" data-toggle="modal" data-target="#modal-animate" data-toggle-class="fade-down" data-toggle-class-target=".animate"><i data-feather="plus"></i>
+				</button>
+			</div>
+			<div class="d-flex flex fixed-content">
+					            
+				<div class="d-flex flex" id="content-body">
+					<div class="d-flex flex-column flex" id="user-list" data-plugin="user">
+						<div class="p-3">
+							<div class="toolbar">
+								<button data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-icon btn-white d-md-none" data-toggle-class="fade-down" data-toggle-class-target=".animate">
+								</button>
+								<!-- <button class="btn btn-md btn-raised btn-wave btn-icon btn-rounded md-2 green text-white" data-toggle="modal" data-target="#modal-animate" data-toggle-class="fade-down" data-toggle-class-target=".animate">Down</button> -->
+							</div>
+						</div>
+                    
+						<div class="scroll-y mx-3 mb-0 card">
+							<div class=" m-4"></div>
+							<div class="list list-row">
+							<% if(data) { %>
+								<% if (data.length > 0) { %>
+									<% for(var i = 0; i < data.length; i++ ) { %>
+							<div class="list-item">
+							
+									
+								<div><a href="<%=BaseUrl%>/edituser/<%= data[i]._id %>"><span class="w-40 avatar gd-primary" data-toggle-class="loading"><span class="avatar-status on b-white avatar-right"></span> <img src="<%=BaseUrl%>/admin/assets/img/<%= data[i].image %>" alt="."></span></a>
+								</div>
+								<div class="flex"><a href="<%=BaseUrl%>/edituser/<%= data[i]._id %>" style="color: #5e676f;"><%= data[i].name %></a>
+									<div class="item-mail text-muted h-1x d-none d-sm-block"><%= data[i].emailid %></div>
+									<div class="item-tag tag hide">Clients,Team,Personal,Company,Work,Friends,Suppliers,Partners
+									</div>
+								</div>
+								<div>
+									<div class="item-action dropdown"><a href="#" data-toggle="dropdown" class="text-muted"><i data-feather="more-vertical"></i></a>
+										<div class="dropdown-menu dropdown-menu-right bg-black" role="menu">
+											<a  href="<%=BaseUrl%>/edituser/<%= data[i]._id %>"  class="dropdown-item" >See detail </a>
+											<div class="dropdown-divider"></div>
+											<a href="<%=BaseUrl%>/deleteuser/<%= data[i]._id %>" class="dropdown-item trash">Delete User</a>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							<% } } }else{ %>
+						<div class="no-result ">
+								<div class="p-4 text-center hide">No Results</div>
+							</div>
+					     <% } %>
+							
+						</div>
+						<div class="px-3 py-3 mt-auto">
+							<div class="d-flex align-items-center">
+								<div class="flex d-flex flex-row">
+									<button class="btn btn-sm no-bg no-shadow px-0 pager-prev"><i data-feather="chevron-left"></i>
+									</button>
+									<div class="pagination pagination-sm mx-2"></div>
+									<button class="btn btn-sm no-bg no-shadow px-0 pager-next"><i data-feather="chevron-right"></i>
+									</button>
+								</div>
+								<div><span class="text-muted">Total:</span> <%= data.length %> <span id="count"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div id="footer" class="page-footer hide">
+			<div class="d-flex p-3"><span class="text-sm text-muted flex">&copy; Copyright. flatfull.com</span>
+				<div class="text-sm text-muted">Version 1.1.1</div>
+			</div>
+		</div>
+	</div>
+
+		<div id="modal-animate" class="modal fade" data-backdrop="true">
+							<div class="modal-dialog animate">
+								<div class="modal-content">
+									<div class="modal-header">
+										<div class="modal-title text-md">Modal title</div>
+										<button class="close" data-dismiss="modal">&times;</button>
+									</div>
+								      <div class="modal-body">
+
+								        <form  action="<%=BaseUrl%>/insertuser" method="POST" enctype="multipart/form-data">
+								          <div class="form-group">
+								            <label for="name">Name:</label>
+								            <input type="text" name="name" placeholder="Enter Category" class="form-control">
+								          </div>
+
+								                    <div class="form-group">
+								            <label for="email">Email:</label>
+								            <input type="text" name="emailid"   placeholder="Enter Category" class="form-control">
+								          </div>
+
+								            <div class="form-group">
+								            <label for="mobile">Mobile:</label>
+								            
+								            <input type="text" name="mobile"  placeholder="Enter Category" class="form-control">
+								          </div>
+
+								          <div class="form-group">
+								            <label for="password">Password:</label>
+								            <input type="text" name="password" placeholder="Enter Category" class="form-control">
+								          </div>
+
+								          <div class="form-group">
+								          	<label for="followup">Image:</label>
+											<div class="custom-file">
+												<input type="file" name="uploaded_image" class="custom-file-input" >
+												<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+											</div>
+										</div>      
+
+								          <div class="modal-footer">
+										<button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+										<input name="submit" value="submit" type="submit" class="btn btn-primary" >
+									      </div>
+								        </form>
+
+								      </div>
+									
+								</div>
+							</div>
+						</div>
+
+		<script src="<%=BaseUrl%>/admin/assets/js/datatables.bootstrap.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/jquery.datatables.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/site.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<div class="card">
+	<div class="sidenav h-100 modal-dialog bg-light">
+		<div class="nav-active-text-primary ">
+			<div class="pt-2">
+				
+				<div class="nav-fold px-2"><a class="d-flex p-2" data-toggle="dropdown"><span class="avatar w-40 rounded hide"></span> <img src="<%=BaseUrl%>/admin/assets/img/<%= data1.image %>" alt="..." class="w-40 r"></a>
+					<div class="hidden-folded flex p-2">
+						<a href="<%=BaseUrl%>/adminprofile/"><%= data1.name %></a><br>
+						<small class="d-block text-muted">CEO</small>
+					</div>
+				</div>
+			
+			</div>
+			<div class="nav-stacked nav-active-primary auto-nav" data-nav>
+				<ul class="nav">
+					<li class="nav-header"><span class="text-xs hidden-folded">Discover</span>
+					</li>
+					<li><a href="<%=BaseUrl%>/user" ><span class="nav-icon"><i data-feather="mail" ></i></span>  <span class="nav-text">User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+					</li>
+					<li class="nav-header hidden-folded"><span class="text-xs">Your collection</span>
+					</li>
+					<li><a href="<%=BaseUrl%>/seen" ><span class="nav-icon"><i data-feather="list" ></i></span>  <span class="nav-text">Tasks</span><span class="nav-badge"><b class="badge badge-pill bg-danger theme count"></b></span></a>
+					</li>
+					<!-- <li><a href="<%=BaseUrl%>/leavs/1" ><span class="nav-icon"><i data-feather="coffee" ></i></span>  <span class="nav-text">Leave</span><span class="nav-badge"><b class="badge badge-pill bg-danger theme count"></b></span></a>
+					</li> -->
+					<span id="HRPMTL"></span><span id="leav"></span>
+				</ul>
+			</div>
+		</div>
+		<div class="py-2 mt-2 b-t no-shrink">
+
+			<%if(sess.email){%>
+			<ul class="nav no-border">
+				<li><a href="<%=BaseUrl%>/logoutadmin"><span class="nav-icon"><i data-feather="power"></i> </span><span class="nav-text">Logout</span></a>
+				</li>
+			</ul>
+			<% } else { %>
+			<ul class="nav no-border">
+				<li><a href="<%=BaseUrl%>/admin"><span class="nav-icon"><i data-feather="power"></i> </span><span class="nav-text">Login</span></a>
+				</li>
+			</ul>
+			<% } %>
+
+		</div><br><br><br>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="<%=BaseUrl%>/admin/html/push.js"></script>
+<script type="text/javascript">
+	// permission for push
+	Push.Permission.request();
+	
+	
+	function myFunction(data) {
+	//    if(data.data == data.data){
+	// 	myFunction = function(){};
+	//    }
+	if (data.data1.length > 0) { 
+		for(var i = 0; i < data.data1.length; i++ ) { 
+		Push.create(data.data1[i].title,{
+			 
+			body: data.data1[i].description,
+			icon: '<%=BaseUrl%>/admin/assets/img/'+data.data1[i].image,
+			timeout: 5000,
+			onClick: function () {
+				setRandomColor();
+				window.focus();
+				this.close();
+			}
+		});
+	}}
+	};
+
+
+	function getRandomColor() {
+		var letters = '0123456789ABCDEF';
+		var color = '#';
+		for (var i = 0; i < 6; i++) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
+	}
+	function setRandomColor() {
+		$("#colorpad").css("color", getRandomColor());
+	}
+</script>
+
+<script>
+	
+$(document).ready(function(){
+ setInterval(function () {getRealData(); getRealData2(); getRealData5();}, 1000);
+ })
+
+function getRealData() {
+	$.ajax({
+   url:"<%=BaseUrl%>/unseen",
+   method:"GET",
+   dataType:"json",
+   success:function(data)
+   {
+    if(data.data > 0)
+    {
+     $('.count').html(data.data);
+    }
+   }
+  });
+}
+
+function getRealData5() {
+	$.ajax({
+   url:"<%=BaseUrl%>/sssss",
+   method:"GET",
+   dataType:"json",
+   success:function(data)
+   {
+    if(data.data000 > 0)
+    { 
+		var coffee = "coffee";
+		document.getElementById("HRPMTL").innerHTML = "<li><a href='<%=BaseUrl%>/leavs/1'><span class='nav-icon text-danger'><i data-feather='coffee'></i></span><span class='nav-text'>Leave Accept</span><span class='nav-badge'><b class='badge badge-pill bg-danger theme'></b></span></a></li>";
+	}
+	if(data.leav > 0)
+    { 
+		document.getElementById("leav").innerHTML = "<li><a href='<%=BaseUrl%>/leave'><span class='nav-icon text-danger'><i data-feather='coffee'></i></span>  <span class='nav-text'>Leave</span><span class='nav-badge'><b class='badge badge-pill bg-danger theme count'></b></span></a></li>";
+    }
+   }
+  });
+}
+
+function getRealData2() {
+	$.ajax({
+   url:"<%=BaseUrl%>/admin_notify",
+   method:"GET",
+   dataType:"json",
+   success:function(data)
+   {
+    if(data.data > 0)
+    {
+		myFunction(data);
+		$.ajax({
+		url:"<%=BaseUrl%>/admin_notify_update",
+		method:"GET",
+		dataType:"json"
+	    })
+    }
+   }
+  });
+}
+
+</script>

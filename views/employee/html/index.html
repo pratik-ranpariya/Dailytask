@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Dashboard </title>
+	<meta name="description" content="Responsive, Bootstrap, BS4">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=BaseUrl%>/employee/assets/css/site.min.css">
+</head>
+<style>.w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%}</style>
+
+<body class="layout-row" >
+	
+    <%- include ('leftsidemenu.html'); %>
+
+
+<div id="main" class="layout-column flex">
+
+	<div id="content" class="flex">
+		<div>
+
+			<div class="page-hero page-container" id="page-hero">
+				<div class="padding d-flex">
+					<div class="page-title">
+						<h2 class="text-md text-highlight">Task History</h2><small class="text-muted">Welcome aboard, <strong><%= data.name %></strong></small>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-content page-container" id="page-content">
+				<div class="padding">
+					<div class="table-responsive">
+						<table id="datatables-example" class="table table-theme table-row v-middle" data-plugin="dataTable">
+							
+							<thead>
+								<tr>
+									<th><span class="text-muted">NO</span>
+									</th>
+									<th><span class="text-muted">Date</span>
+									</th>
+									<th><span class="text-muted">Title</span>
+									</th>
+									<th><span class="text-muted">Discription</span>
+									</th>
+									<th><span class="text-muted">Start Time</span>
+									</th>
+									<th><span class="text-muted">End Time</span>
+									</th>
+									<th><span class="text-muted">Duration</span>
+									</th>
+									<th><span class="text-muted d-none d-sm-block">Notes</span>
+									</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+                            <% if(data1) { %>
+								<% if (data1.length > 0) { %>
+									<% for(var i = 0; i < data1.length; i++ ) { %>
+										<tr>
+											<td style="min-width:30px;text-align:center"><small class="text-muted"><%= (i + 1) %></small>
+											</td>
+											<td class="flex">
+												<div class="item-except text-muted text-sm h-2x">
+													<%= data1[i].date%>
+												</div>
+											</td>
+
+											<td class="flex">
+												<div class="item-except text-muted text-sm h-1x"><%= data1[i].title %></div>
+											</td>
+
+											<td class="flex">
+												<div class="item-except text-muted text-sm h-1x"><%= data1[i].description %></div>
+											</td>
+
+											<td><span class="item-amount d-none d-sm-block text-sm"><%= data1[i].starttime %></span>
+											</td>
+
+
+											<td><span class="item-amount d-none d-sm-block text-sm"><%= data1[i].endtime %></span>
+											</td>
+
+											
+											<td><span class="item-amount d-none d-sm-block text-sm"><%= data1[i].diff %> Hour</span>
+											</td>
+
+											<td><span class="item-amount d-none d-sm-block text-sm"><%= data1[i].note %></span>
+											</td>
+											<td>
+											    <% if(data1[i].edit_status == 0){ %>
+                                                  
+                                                 
+		                                        <a href="<%=BaseUrl%>/editwork/<%= data1[i]._id %>">
+		                                          	<button class="btn btn-dark">Edit</button>
+												</a>
+
+											   <% }%>
+										   </td>
+									    </tr>
+										<% } }else{ %>
+										<tr>
+											<td colspan="7">
+												<span class="item-amount d-none d-sm-block text-sm">
+													<center><div class="item-except text-muted text-sm h-1x">Date Not Found</div></center>
+												</span>
+											</td>
+										</tr>  
+									<% }%>
+							    <% } %>
+									</tbody>
+
+								</table>
+								
+							</div>
+												<!-- Pagination -->
+					<div class="clearfix"></div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="pagination-container margin-top-30 margin-bottom-60">
+								<% if (pages > 0) { %>
+									<ul class="pagination justify-content-end" id="pagination">
+									  <% if (current == 1) { %>
+										<li class="disabled"><a>First</a></li>
+									  <% } else { %>
+										  <li><a href="/histories/1">First</a></li>
+									  <% } %>
+									  <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+									  <% if (i !== 1) { %>
+										  <li class="disabled"><a>...</a></li>
+									  <% } %>
+									  <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+										  <% if (i == current) { %>
+											  <li class="active"><a><%= i %></a></li>
+										  <% } else { %>
+											  <li><a href="/histories/<%= i %>"><%= i %></a></li>
+										  <% } %>
+										  <% if (i == Number(current) + 4 && i < pages) { %>
+											  <li class="disabled"><a>...</a></li>
+										  <% } %>
+									  <% } %>
+									  <% if (current == pages) { %>
+										  <li class="disabled"><a>Last</a></li>
+									  <% } else { %>
+										  <li><a href="/histories/<%= pages %>">Last</a></li>
+									  <% } %>
+				  
+									</ul>
+								  <% } %>
+							</div>
+						</div>
+					</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+						<div id="footer" class="page-footer">
+							<div class="d-flex p-3"><span class="text-sm text-muted flexs">&copy;  Copyright. SsvlTechnologies.com</span>
+							</div>
+						</div>
+		</div>
+
+		<script src="<%=BaseUrl%>/employee/assets/js/datatables.bootstrap.min.js"></script>
+		<script src="<%=BaseUrl%>/employee/assets/js/jquery.datatables.min.js"></script>
+		<script src="<%=BaseUrl%>/employee/assets/js/site.min.js"></script>
+
+	</body>
+
+	</html>

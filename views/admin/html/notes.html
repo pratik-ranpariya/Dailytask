@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Dashboard </title>
+	<meta name="description" content="Responsive, Bootstrap, BS4">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<%=BaseUrl%>/admin/assets/css/site.min.css">
+</head>
+
+<body class="layout-row" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+	<%- include ('leftsidemenu.html'); %>
+
+	<div id="main" class="layout-column flex">
+
+		<div id="content" class="flex">
+			<div>
+								<div class="page-content page-container" id="page-content">
+
+					<div class="padding">
+						<div class="row row-sm sr">
+							
+											<div class="col-md-12">
+								<div class="card">
+									<div class="card-header"><strong>Add Note</strong>
+									</div>
+								<div class="p-4 d-sm-flex no-shrink b-b">
+								<!-- <div>
+									<a class="avatar w-96">
+										<img src="<%=BaseUrl%>/admin/assets/img/<%= data.image %>" alt=".">
+									</a>
+								</div> -->
+								<div class="px-sm-4 my-3 my-sm-0 flex">
+									<h2 class="text-md"><%= data.name %></h2><small class="d-block text-fade"><%= data.date %></small>
+								</div>
+								<div>
+								</div>
+							</div>
+									<div class="card-body">
+										
+										
+											<div class="form-group row row-sm">
+												<label class="col-sm-3 col-form-label">Time</label>
+												<div class="col-md-2">
+												<input name="starttime" type="text" id="event-start-time" value="<%= data.starttime %>"  class="form-control" placeholder="Time" required>
+												</div>
+												<label class=" col-form-label">To</label>
+											
+												<div class="col-md-2">
+													<input name="endtime" type="text" id="event-end-time" class="form-control" placeholder="Time" value="<%= data.endtime %>" required>
+												</div>
+
+										
+										</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">Title</label>
+												<div class="col-sm-9">
+													<input id="event-title" type="text" name="title" value="<%= data.title %>" class="form-control" placeholder="Title" required />
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">Description</label>
+												<div class="col-sm-9">
+											<input type="text" id="event-desc" name="discription" value="<%= data.description %>" class="form-control" rows="6"/>
+												</div>
+											</div>
+										<form action="<%=BaseUrl%>/updatenote/<%= data._id%>" method="post" >
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">Notes</label>
+												<div class="col-sm-9">
+													<Textarea name="note" value="<%= data.note %>" class="form-control" rows="6">
+													</Textarea>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3"></label>
+												<div class="col-sm-9">
+													<input type="submit" name="submit" value="submit"  class="btn gd-primary text-white btn-rounded"/>
+												</div>
+											</div>
+										</form>
+										
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer" class="page-footer ">
+			<div class="d-flex p-3"><span class="text-sm text-muted flex">&copy; Copyright. flatfull.com</span>
+				<div class="text-sm text-muted">Version 1.1.1</div>
+			</div>
+		</div>
+	</div>
+
+		<script src="<%=BaseUrl%>/admin/assets/js/datatables.bootstrap.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/jquery.datatables.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/site.min.js"></script>
+	
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Dashboard </title>
+	<meta name="description" content="Responsive, Bootstrap, BS4">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" type="text/css" href="<%=BaseUrl%>/admin/assets/css/datatables.bootstrap.min.css"/>
+	<link rel="stylesheet" href="<%=BaseUrl%>/admin/assets/css/site.min.css">
+
+</head>
+
+<body class="layout-row">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <%- include ('leftsidemenu.html'); %>
+</div>
+	<div id="main" class="layout-column flex">
+
+
+		<div id="content" class="flex">
+			<div>
+				<div class="page-hero page-container" id="page-hero">
+					<div class="padding d-flex">
+						<div class="page-title">
+							<h2 class="text-md text-highlight">Leaves</h2><small class="text-muted">Welcome aboard, <strong><%= data1.name %></strong></small>
+						</div>
+						<div class="flex"></div>
+						
+					</div>
+				</div>
+
+				
+				<div class="page-content page-container" id="page-content">
+					<div class="padding">
+
+						<div class="table-responsive">
+							<% if(data1) { %>	
+							<table id="datatables-example" class="table table-theme table-row v-middle" data-plugin="dataTable">
+								<thead>
+									<tr>
+										<th><span class="text-muted">Image</span>
+										</th>
+										<th><span class="text-muted">Date & Name</span>
+										</th>
+										<th><span class="text-muted">Reason</span>
+										</th>
+										<th><span class="text-muted">Start Time</span>
+										</th>
+										<th><span class="text-muted">End Time</span>
+										</th>
+										<th><span class="text-muted">Duration</span>
+										</th>
+										<th><span class="text-muted">Approve/ Not</span>
+										</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+			               <% if (data1.length > 0) { %>
+									<% for(var i = 0; i < data1.length; i++ ) { %>
+				                      <tr>
+										<td><a href="#"><span class="w-32 avatar gd-primary"><img src="<%=BaseUrl%>/admin/assets/img/<%= data1[i].image %>" alt="."></span></a>
+										</td>
+										<td class="flex"><a href="#" class="item-title text-color"><%= data1[i].name %></a>
+											<div class="item-except text-muted text-sm h-1x"><%= data1[i].date %></div>
+										</td>
+										<td class="flex"><div class="item-except text-muted text-sm h-1x"><%= data1[i].reason %></div>
+										</td>
+										<style>.w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #ccc;width:100%}</style>
+										<td><span class="item-amount d-none d-sm-block text-sm"><input type="datetime-local" class="w3-input" value="<%= data1[i].starttime %>"></span>
+										</td>
+										<td><span class="item-amount d-none d-sm-block text-sm"><input type="datetime-local" class="w3-input" value="<%= data1[i].endtime %>"></span>
+										</td>
+										<td><span class="item-amount d-none d-sm-block text-sm"><%= data1[i].diff %> Hour </span>
+                                        </td>
+										<td><% if(data1[i].HRPMTL == 0){ %> <a href="/leaveapprove/<%= data1[i]._id %>"><button class="btn btn-dark">Approve</button></a><%}else{%> <button class="btn" style="color: #c2c0c3">Approved</button><%} %>  </span>
+                                        </td>
+									</tr>
+									<% } } %>
+								</tbody>
+							</table>
+                             <% } %>
+						</div>
+						
+											<!-- Pagination -->
+							<div class="clearfix"></div>
+								<div class="row">
+									<div class="col-md-12">
+									<!-- Pagination -->
+									<% if (pages > 0) { %>
+										<ul class="pagination justify-content-end" id="pagination">
+										  <% if (current == 1) { %>
+											<li class="disabled"><a>First</a></li>
+										  <% } else { %>
+											  <li><a href="/leavs/1">First</a></li>
+										  <% } %>
+										  <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+										  <% if (i !== 1) { %>
+											  <li class="disabled"><a>...</a></li>
+										  <% } %>
+										  <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+											  <% if (i == current) { %>
+												  <li class="active"><a><%= i %></a></li>
+											  <% } else { %>
+												  <li><a href="/leavs/<%= i %>"><%= i %></a></li>
+											  <% } %>
+											  <% if (i == Number(current) + 4 && i < pages) { %>
+												  <li class="disabled"><a>...</a></li>
+											  <% } %>
+										  <% } %>
+										  <% if (current == pages) { %>
+											  <li class="disabled"><a>Last</a></li>
+										  <% } else { %>
+											  <li><a href="/leavs/<%= pages %>">Last</a></li>
+										  <% } %>
+					  
+										</ul>
+									  <% } %>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+
+				</div>
+			</div>
+
+
+			<div id="footer" class="page-footer hide">
+				<div class="d-flex p-3"><span class="text-sm text-muted flex">&copy; Copyright. flatfull.com</span>
+					<div class="text-sm text-muted">Version 1.1.1</div>
+				</div>
+			</div>
+		</div>
+		<script src="<%=BaseUrl%>/admin/assets/js/datatables.bootstrap.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/jquery.datatables.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/site.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('#datatables-example').DataTable();
+			});
+		</script>
+
+	</body>
+
+	</html>

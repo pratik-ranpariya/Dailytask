@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Dashboard </title>
+	<meta name="description" content="Responsive, Bootstrap, BS4">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" type="text/css" href="<%=BaseUrl%>/admin/assets/css/datatables.bootstrap.min.css"/>
+	<link rel="stylesheet" href="<%=BaseUrl%>/admin/assets/css/site.min.css">
+
+</head>
+
+<body class="layout-row">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <%- include ('leftsidemenu.html'); %>
+</div>
+	<div id="main" class="layout-column flex">
+
+
+		<div id="content" class="flex">
+			<div>
+				<div class="page-hero page-container" id="page-hero">
+					<div class="padding d-flex">
+						<div class="page-title">
+							<h2 class="text-md text-highlight">Today Task</h2><small class="text-muted">Welcome aboard, <strong><%= data1.name %></strong></small>
+						</div>
+						<div class="flex"></div>
+						
+					</div>
+				</div>
+
+				
+				<div class="page-content page-container" id="page-content">
+					<div class="padding">
+
+						<div class="table-responsive">
+							<% if(data) { %>	
+							<table id="datatables-example" class="table table-theme table-row v-middle" data-plugin="dataTable">
+								<thead>
+									<tr>
+										<th><span class="text-muted">Image</span>
+										</th>
+										<th><span class="text-muted">Date</span>
+										</th>
+										<th><span class="text-muted">Name & Title</span>
+										</th>
+										<th><span class="text-muted">Discription</span>
+										</th>
+										<th><span class="text-muted">Start Time</span>
+										</th>
+										<th><span class="text-muted">End Time</span>
+										</th>
+										<th><span class="text-muted">Duration</span>
+										</th>
+										<th><span class="text-muted d-none d-sm-block">Notes</span>
+										</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+			               <% if (data.length > 0) { %>
+									<% for(var i = 0; i < data.length; i++ ) { %>
+				                      <tr>
+										<td><a href="#"><span class="w-32 avatar gd-primary"><img src="<%=BaseUrl%>/admin/assets/img/<%= data[i].image %>" alt="."></span></a>
+										</td>
+										<td class="flex">
+											<div class="item-except text-muted text-sm h-1x"><%= data[i].date %></div>
+										</td>
+										<td class="flex"><a href="#" class="item-title text-color"><%= data[i].name %></a>
+											<div class="item-except text-muted text-sm h-1x"><%= data[i].title %></div>
+										</td>
+										<td class="flex">
+											<div class="item-except text-muted text-sm h-1x"><%= data[i].description %></div>
+										</td>
+
+										<td><span class="item-amount d-none d-sm-block text-sm"><%= data[i].starttime %></span>
+										</td>
+										<td><span class="item-amount d-none d-sm-block text-sm"><%= data[i].endtime %></span>
+										</td>
+										<td><span class="item-amount d-none d-sm-block text-sm"><%= data[i].diff %> Hour </span>
+										</td>
+										<td><span class="item-amount d-none d-sm-block text-sm"><%= data[i].note %>  </span>
+										</td>
+										<td><% if(data[i].edit_status == 0){ %> <a href="/approve/<%= data[i]._id %>"><button class="btn btn-dark"> Approve</button></a><%}else{%> <button class="btn" style="color: #c2c0c3">Approved</button><%} %>  </span>
+										</td>
+										<td>	
+										<div class="item-action dropdown"><a href="" data-toggle="dropdown" class="text-muted"><i data-feather="more-vertical"></i></a>
+												<div class="dropdown-menu dropdown-menu-right bg-black" role="menu">
+												<a href="<%=BaseUrl%>/addnote/<%= data[i]._id %>" class="dropdown-item trash">Add Note</a>
+													<div class="dropdown-divider"></div><a class="dropdown-item trash">Delete item</a>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<% } } %>
+								</tbody>
+							</table>
+                             <% } %>
+						</div>
+						
+											<!-- Pagination -->
+							<div class="clearfix"></div>
+								<div class="row">
+									<div class="col-md-12">
+									<!-- Pagination -->
+									<% if (pages > 0) { %>
+										<ul class="pagination justify-content-end" id="pagination">
+										  <% if (current == 1) { %>
+											<li class="disabled"><a>First</a></li>
+										  <% } else { %>
+											  <li><a href="/dashboard/1">First</a></li>
+										  <% } %>
+										  <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+										  <% if (i !== 1) { %>
+											  <li class="disabled"><a>...</a></li>
+										  <% } %>
+										  <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+											  <% if (i == current) { %>
+												  <li class="active"><a><%= i %></a></li>
+											  <% } else { %>
+												  <li><a href="/dashboard/<%= i %>"><%= i %></a></li>
+											  <% } %>
+											  <% if (i == Number(current) + 4 && i < pages) { %>
+												  <li class="disabled"><a>...</a></li>
+											  <% } %>
+										  <% } %>
+										  <% if (current == pages) { %>
+											  <li class="disabled"><a>Last</a></li>
+										  <% } else { %>
+											  <li><a href="/dashboard/<%= pages %>">Last</a></li>
+										  <% } %>
+					  
+										</ul>
+									  <% } %>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+
+										
+
+
+
+
+
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+<!-- 
+			<div id="ff" class="flex">
+				<div>
+					<div class="page-hero page-container" id="page-hero">
+						<div class="padding d-flex">
+							<div class="page-title">
+								<h2 class="text-md text-highlight">Today Task</h2><small class="text-muted">Welcome aboard, <strong><%= data1.name %></strong></small>
+							</div>
+							<div class="flex"></div>
+							
+						</div>
+					</div>
+	
+					
+					<div class="page-content page-container" id="page-content">
+						<div class="padding">
+	
+							<div class="table-responsive">
+								<% if(data) { %>	
+								<table id="datatables-example" class="table table-theme table-row v-middle" data-plugin="dataTable">
+									<thead>
+										<tr>
+											<th><span class="text-muted">Image</span>
+											</th>
+											<th><span class="text-muted">Date</span>
+											</th>
+											<th><span class="text-muted">Name & Title</span>
+											</th>
+											<th><span class="text-muted">Discription</span>
+											</th>
+											<th><span class="text-muted">Start Time</span>
+											</th>
+											<th><span class="text-muted">End Time</span>
+											</th>
+											<th><span class="text-muted d-none d-sm-block">Notes</span>
+											</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody id="topUserList">
+							   <% if (data.length > 0) { %>
+										<% for(var i = 0; i < data.length; i++ ) { %>
+										  <tr>
+											<td><a href="#"><span class="w-32 avatar gd-primary"><img src="<%=BaseUrl%>/admin/assets/img/<%= data[i].image %>" alt="."></span></a>
+											</td>
+											<td class="flex">
+												<div class="item-except text-muted text-sm h-1x"><%= data[i].date %></div>
+											</td>
+											<td class="flex"><a href="#" class="item-title text-color"><%= data[i].name %></a>
+												<div class="item-except text-muted text-sm h-1x"><%= data[i].title %></div>
+											</td>
+											<td class="flex">
+												<div class="item-except text-muted text-sm h-1x"><%= data[i].description %></div>
+											</td>
+	
+											<td><span class="item-amount d-none d-sm-block text-sm"><input class="w3-input" type="time" value="<%= data[i].starttime %>"></span>
+											</td>
+											<td><span class="item-amount d-none d-sm-block text-sm"><input class="w3-input" type="time" value="<%= data[i].endtime %>"></span>
+											</td>
+											<td><span class="item-amount d-none d-sm-block text-sm"><%= data[i].note %>  </span>
+											</td>
+											<td><% if(data[i].edit_status == 0){ %> <a href="/approve/<%= data[i]._id %>"><button class="btn btn-dark"> Approve</button></a><%}else{%> <button class="btn" style="color: #c2c0c3">Approved</button><%} %>
+											</td>
+											<td>	
+											<div class="item-action dropdown"><a href="" data-toggle="dropdown" class="text-muted"><i data-feather="more-vertical"></i></a>
+													<div class="dropdown-menu dropdown-menu-right bg-black" role="menu">
+													<a href="<%=BaseUrl%>/addnote/<%= data[i]._id %>" class="dropdown-item trash">Add Note</a>
+														<div class="dropdown-divider"></div><a class="dropdown-item trash">Delete item</a>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<% } } %>
+									</tbody>
+								</table>
+								 <% } %>
+							</div>
+							
+								<div class="clearfix"></div>
+									<div class="row">
+										<div class="col-md-12">
+										<% if (pages > 0) { %>
+											<ul class="pagination justify-content-end" id="pagination">
+											  <% if (current == 1) { %>
+												<li class="disabled"><a>First</a></li>
+											  <% } else { %>
+												  <li><a href="/dashboard/1">First</a></li>
+											  <% } %>
+											  <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+											  <% if (i !== 1) { %>
+												  <li class="disabled"><a>...</a></li>
+											  <% } %>
+											  <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+												  <% if (i == current) { %>
+													  <li class="active"><a><%= i %></a></li>
+												  <% } else { %>
+													  <li><a href="/dashboard/<%= i %>"><%= i %></a></li>
+												  <% } %>
+												  <% if (i == Number(current) + 4 && i < pages) { %>
+													  <li class="disabled"><a>...</a></li>
+												  <% } %>
+											  <% } %>
+											  <% if (current == pages) { %>
+												  <li class="disabled"><a>Last</a></li>
+											  <% } else { %>
+												  <li><a href="/dashboard/<%= pages %>">Last</a></li>
+											  <% } %>
+						  
+											</ul>
+										  <% } %>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+	
+					</div>
+				</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<div id="footer" class="page-footer hide">
+				<div class="d-flex p-3"><span class="text-sm text-muted flex">&copy; Copyright. flatfull.com</span>
+					<div class="text-sm text-muted">Version 1.1.1</div>
+				</div>
+			</div>
+		</div>
+		<script src="<%=BaseUrl%>/admin/assets/js/datatables.bootstrap.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/jquery.datatables.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/site.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('#datatables-example').DataTable();
+			});
+		</script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+	
+$(document).ready(function(){
+ setInterval(function () {getRealData()}, 9000);
+ })
+
+function getRealData() {
+	$.ajax({
+   url:"<%=BaseUrl%>/realtimedata/1",
+   method:"GET",
+   dataType:"json",
+   success:function(data)
+   {
+	   console.log("resposne ::::::::::: ",data);
+		  var tablebody = '';
+		  
+          for(var i=0; i < data.data.length; i++){
+			console.log('name '+data.data[i].PlayerName);
+            
+                tablebody   +='<tr>'
+					        +'<td> <span class="w-32 avatar gd-primary"><img src="<%=BaseUrl%>/admin/assets/img/'+data.data[i].image+'"></span></td>'
+							+'<td class="flex"><div class="item-except text-muted text-sm h-1x">'+data.data[i].date+'</div></td> '
+							+'<td class="flex"><a href="#" class="item-title text-color">'+data.data[i].name +'</a><div class="item-except text-muted text-sm h-1x">'+data.data[i].title+'</div></td>'
+							+'<td class="flex"> <div class="item-except text-muted text-sm h-1x">'+data.data[i].description+'</div></td> '
+							
+							+'<td><span class="item-amount d-none d-sm-block text-sm"><input class="w3-input" type="time" value='+ data.data[i].starttime +'></span></td>'
+							+'<td><span class="item-amount d-none d-sm-block text-sm"><input class="w3-input" type="time" value='+ data.data[i].endtime +'></span></td>'
+							// +'<td class="text-center ng-binding" style="margin-right: 5px;">'+data.data[i].note+'</td> '
+							+'<td><a href="<%=BaseUrl%>/approve/'+data.data[i]._id+'"><button class="btn btn-dark '+data.data[i].edit_status+'"> Approve</button></a><button class="btn" style="color: #c2c0c3">Approved</button></td>'
+
+							// +'<td><% if('+data.data[i].edit_status == 0+'){ %> <a href="/approve/'+ data.data[i]._id +'"><button class="btn btn-dark"> Approve</button></a><%}else{%> <button class="btn" style="color: #c2c0c3">Approved</button><%} %></td>'
+                            
+
+
+							+'<td><div class="item-action dropdown"><a href="" data-toggle="dropdown" class="text-muted"><i data-feather="more-vertical"></i></a><div class="dropdown-menu dropdown-menu-right bg-black" role="menu"><a href="<%=BaseUrl%>/addnote/'+data.data[i]._id+'" class="dropdown-item trash">Add Note</a><div class="dropdown-divider"></div><a class="dropdown-item trash">Delete item</a></div></div></td>'
+                            // +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].catalogDetails[0].description+'</td> '
+                            // +'<td class="text-center ng-binding" style="margin-right: 5px;">'+response[i].catalogDetails[0].created_at+'</td> '
+                        +'</tr>';
+              
+            }
+        $('#topUserList').html(tablebody);
+        $('#ff').modal('toggle');
+   }
+  });
+}
+
+</script> -->
+	</body>
+
+	</html>

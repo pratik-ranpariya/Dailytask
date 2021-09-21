@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Dashboard </title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<%=BaseUrl%>/employee/assets/css/site.min.css">
+</head>
+<link rel="stylesheet" href="<%=BaseUrl%>/admin/assets/css/prism.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata|Frank+Ruhl+Libre|Playball|Source+Sans+Pro:400,600">
+    <link rel="stylesheet" href="<%=BaseUrl%>/admin/assets/css/clocklet.css">
+	
+	<style>
+        
+        
+        h1 {
+            margin: 0;
+            font-size: 3.5em;
+            font-family: "Frank Ruhl Libre", serif;
+            font-weight: normal;
+            letter-spacing: -2px;
+        }
+        
+        h1 > strong {
+            font-weight: normal;
+            font-family: Playball, cursive;
+            letter-spacing: 0;
+            padding-left: 2px;
+        }
+        
+        h2 {
+            margin: .5em 0;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        
+        h3 {
+            margin: .25em 0;
+            font-size: 1.25em;
+            font-weight: 600;
+        }
+        
+        pre,
+        code {
+            font-family: Inconsolata, monospace;
+            font-size: 1em;
+        }
+        
+        code[class*="language-"],
+        pre[class*="language-"],
+        q {
+            font-family: Inconsolata, monospace;
+        }
+        
+        section {
+            padding-left: 20px;
+            margin-bottom: 2em;
+        }
+        
+        section > h2 {
+            margin-left: -20px;
+        }
+        
+        pre[class*="language-"],
+        :not(pre) > code[class*="language-"] {
+            margin: .2em 0;
+            padding: .2em .5em;
+            font-size: .875em;
+        }
+        
+        code[class*="language-"] {
+            line-height: 1.2;
+        }
+        
+        label {
+            display: inline-flex;
+            align-items: center;
+            /* margin-left: .5em; */
+            white-space: nowrap;
+        }
+        
+        svg {
+            vertical-align: middle;
+        }
+        
+        .example {
+            margin-bottom: 1em;
+        }
+        
+        @media(max-width: 480px) {
+            body {
+                margin: 8px 8px 32px 8px;
+            }
+            section {
+                padding-left: 12px;
+            }
+            section > h2 {
+                margin-left: -12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-64398169-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments)
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-64398169-1');
+    </script>
+    <script src="<%=BaseUrl%>/admin/assets/js/clocklet.js"></script>
+    
+<body class="layout-row">
+	
+	<%- include ('leftsidemenu.html'); %>
+
+	<div id="main" class="layout-column flex">
+
+		<div id="content" class="flex">
+			<div>
+				<div class="page-hero page-container" id="page-hero">
+					<div class="padding d-flex">
+						<div class="page-title">
+							<h2 class="text-md text-highlight">Today Task</h2>
+						</div>
+					</div>
+				</div>
+
+				<div class="page-content page-container" id="page-content">
+					<div class="padding">
+						<div class="row row-sm sr">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header"><strong>Task form</strong>
+									</div>
+									<div class="card-body">
+
+										<div class="example">
+											<!-- <h3>Colors</h3> -->
+											<div class="demo">
+												<style>
+													.clocklet-color-example {
+														background-color: #dce1e4;
+														border: none;
+													}
+													/* minute - dial, hand, selected tick, hovered tick */
+													
+													.clocklet-color-example .clocklet-dial--minute {
+														background-color: #fcf0e8;
+													}
+													
+													.clocklet-color-example .clocklet-hand--minute {
+														background-color: #f5bb95;
+													}
+													
+													.clocklet-color-example .clocklet-tick--minute.clocklet-tick--selected {
+														background-color: #f2a470;
+													}
+													
+													.clocklet-color-example.clocklet--hoverable:not(.clocklet--dragging) .clocklet-tick--minute:hover {
+														background-color: #f5bb95;
+													}
+													/* hour - dial, hand, selected tick, hovered tick */
+													
+													.clocklet-color-example .clocklet-dial--hour {
+														background-color: #e9fdf1;
+													}
+													
+													.clocklet-color-example .clocklet-hand--hour {
+														background-color: #98f5bd;
+													}
+													
+													.clocklet-color-example .clocklet-tick--hour.clocklet-tick--selected {
+														background-color: #44ee88;
+													}
+													
+													.clocklet-color-example.clocklet--hoverable:not(.clocklet--dragging) .clocklet-tick--hour:hover {
+														background-color: #98f5bd;
+													}
+													/* hand origin */
+													
+													.clocklet-color-example .clocklet-hand-origin {
+														background-color: #f1e369;
+													}
+													/* ampm */
+													
+													.clocklet-color-example .clocklet-ampm::before {
+														background-color: #44eedd;
+													}
+													
+													.clocklet-color-example .clocklet-ampm:hover::before {
+														background-color: #97f5ec;
+													}
+													
+													.clocklet-color-example .clocklet-ampm[data-clocklet-ampm="pm"]::before {
+														background-color: #dd44ee;
+													}
+													
+													.clocklet-color-example .clocklet-ampm[data-clocklet-ampm="pm"]:hover::before {
+														background-color: #eda1f6;
+													}
+												</style>
+								
+												
+											</div>
+
+										<form name="time" action="<%=BaseUrl%>/inserttask"  method="post"  role="form" onsubmit="return validateForm()">
+											<div class="row">
+
+												<table class="table no-border custom_table dataTable no-footer dtr-inline" id="crud_table" style="width: 100%;background-color:#fff;">
+														<tr>
+															<td><input type="hidden" name="id" value="<%= data._id%>"></td>
+														</tr>
+															<thead>
+																<tr>
+																	<th>Start Time</th>
+																	<th>End Time</th>
+																	<th>Title</th>
+																	<th>Discription</th>
+																</tr>
+															</thead>
+
+															<tbody style="background-color: #eee;" >	
+																<tr>
+																	    <td><input name="starttime" id="starttime" data-clocklet="class-name: clocklet-color-example; format: hh:mm A" value="09:00 AM" class="form-control" autocomplete="off "></td>
+																	    <td><input name="endtime" id="endtime" data-clocklet="class-name: clocklet-color-example; format: hh:mm A" value="00:00 PM" class="form-control" autocomplete="off "></td>
+																	    <!-- <td><input type="time" name="starttime" id="starttime"  class="form-control" autocomplete="off " required></td>  -->
+																		<!-- <td><input type="time" name="endtime" id="endtime" class="form-control" autocomplete="off" required></td> -->
+																		<td><input type="text" name="title" class="form-control" autocomplete="off" required></td>
+																		<td><input type="text" name="description" class="form-control" autocomplete="off" required></td>
+																	</tr>
+																</tbody>
+															
+															</table>
+
+														<div class="form-group">
+															<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+																<input type="submit" name="submit" value="submit"  id="btn-save" class="btn btn-primary"/>
+															</div>
+														</div>
+													</form>
+														</div>
+
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- <div id="footer" class="page-footer">
+							<div class="d-flex p-3"><span class="text-sm text-muted flex">&copy;  Copyright. SsvlTechnologies.com</span>
+								<div class="text-sm text-muted">Version 1.1.1</div>
+							</div>
+						</div> -->
+					</div>
+
+		<script src="<%=BaseUrl%>/employee/assets/js/datatables.bootstrap.min.js"></script>
+		<script src="<%=BaseUrl%>/employee/assets/js/jquery.datatables.min.js"></script>
+		<script src="<%=BaseUrl%>/employee/assets/js/site.min.js"></script>
+
+		
+		<script src="<%=BaseUrl%>/admin/assets/js/prism.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/prism-markup.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/prism-css.min.js"></script>
+		<script src="<%=BaseUrl%>/admin/assets/js/prism-javascript.min.js"></script>
+		<!-- <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script> -->
+
+		<script>
+			function validateForm(){
+	
+				var starttime = document.forms["time"]["starttime"].value;
+				var endtime = document.forms["time"]["endtime"].value;
+
+				
+				var timeStart = new Date("01/01/2007 " + starttime).getTime();
+                var timeEnd = new Date("01/01/2007 " + endtime).getTime();
+
+              if (timeStart == timeEnd){
+				alert("Your Starttime and endtime are same"); 
+				return false;
+			  }else if (timeStart > timeEnd){
+				alert("Oops! Your starttime Should not Greater then End Time!"); 
+				return false;
+			  }
+			  
+			  return true;
+			}
+		</script>
+	
+</body>
+
+</html>
